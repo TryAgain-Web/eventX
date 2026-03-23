@@ -6,11 +6,11 @@ const User = require('../models/user');
 
 exports.signup = async (req, res, next) => {
   const errors = validationResult(req);
-  
+
   if (!errors.isEmpty()) {
     return res.status(422).json({
       message: 'Validation failed',
-      errors: errors.array()
+
     });
   }
 
@@ -27,7 +27,7 @@ exports.signup = async (req, res, next) => {
         password: hashedPassword
       }
 
-      const result = await User.save(userDeatails);
+      await User.save(userDeatails);
       res.status(201).json({ message: 'User registered!'});
     }catch (err) {
       if (!err.statusCode) {
