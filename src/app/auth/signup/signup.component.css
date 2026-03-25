@@ -78,6 +78,19 @@
     text-decoration: underline;
   }
 
+  .wrapper .error-message {
+    margin: 0;
+    color: #ffd7d7;
+    font-size: 14px;
+    text-align: center;
+  }
+
+  .wrapper .field-error-message {
+    margin: -18px 0 10px 12px;
+    color: #ffd7d7;
+    font-size: 12px;
+  }
+
   .wrapper .btn {
   width: 100%;
   height: 45px;
@@ -91,6 +104,11 @@
   font-size: 16px;
   color: #333;
   font-weight: 600;
+}
+
+.wrapper .btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.8;
 }
   .wrapper .login-register {
     font-size: 14.5px;

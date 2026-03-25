@@ -21,8 +21,14 @@ const signupValidation = [
    body('password').isLength({ min: 7 }).withMessage('Password must be at least 7 characters long'),
 ];
 
+const loginValidation = [
+  body('email').isEmail().withMessage('Please provide a valid email').normalizeEmail(),
+  body('password').trim().notEmpty().withMessage('Password is required'),
+];
+
 router.post('/signup', signupValidation, authController.signup);
 router.post('/register', signupValidation, authController.signup);
+router.post('/login', loginValidation, authController.login);
 
 
 module.exports = router;

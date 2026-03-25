@@ -3,7 +3,7 @@
   <form class="form" (ngSubmit)="submit()">
     <h1>Sign Up</h1>
     <div class="input-box">
-      <input type="text" placeholder="Username" required [(ngModel)]="form.username" name="username">
+      <input type="text" placeholder="Username" required [(ngModel)]="form.username" name="username" [disabled]="isSubmitting">
       <svg  xmlns="http://www.w3.org/2000/svg" width="24" height="24"
 fill="currentColor" viewBox="0 0 24 24" >
 <!--Boxicons v3.0.8 https://boxicons.com | License  https://docs.boxicons.com/free-->
@@ -11,15 +11,16 @@ fill="currentColor" viewBox="0 0 24 24" >
 </svg>
     </div>
     <div class="input-box">
-      <input type="email" placeholder="Email" required [(ngModel)]="form.email" name="email">
+      <input type="email" placeholder="Email" required [(ngModel)]="form.email" name="email" [disabled]="isSubmitting">
       <svg  xmlns="http://www.w3.org/2000/svg" width="24" height="24"
 fill="currentColor" viewBox="0 0 24 24" >
 <!--Boxicons v3.0.8 https://boxicons.com | License  https://docs.boxicons.com/free-->
 <path d="M21.55 8.17 19 6.47V5.01c0-.55-.45-1-1-1h-2.7l-2.75-1.83c-.34-.22-.77-.22-1.11 0L8.69 4.01h-2.7c-.55 0-1 .45-1 1v1.46l-2.55 1.7c-.28.19-.45.5-.45.83v11c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V9c0-.33-.17-.65-.45-.83ZM7 6h10v4.46l-5 3.33-5-3.33zM4 20v-9.13l1.45.96 6 4c.17.11.36.17.55.17s.39-.06.55-.17l6-4 1.45-.96V20z"></path>
 </svg>
     </div>
+    <p *ngIf="emailErrorMessage" class="field-error-message">{{ emailErrorMessage }}</p>
     <div class="input-box">
-      <input type="password" placeholder="Password" required [(ngModel)]="form.password" name="password">
+      <input type="password" placeholder="Password" required [(ngModel)]="form.password" name="password" [disabled]="isSubmitting">
       <svg  xmlns="http://www.w3.org/2000/svg" width="24" height="24"
 fill="currentColor" viewBox="0 0 24 24" >
 <!--Boxicons v3.0.8 https://boxicons.com | License  https://docs.boxicons.com/free-->
@@ -32,7 +33,9 @@ fill="currentColor" viewBox="0 0 24 24" >
       <a href="#">Forgot Password?</a>
     </div>
 
-<button type="submit" class="btn">Sign Up</button>
+<p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+
+<button type="submit" class="btn" [disabled]="isSubmitting">{{ isSubmitting ? 'Signing in...' : 'Sign Up' }}</button>
 
 <div class="login-register">
   <p>Already have an account? <a routerLink="/login">Log in</a></p>

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 import { Login } from 'src/types/auth';
 
 @Component({
@@ -7,19 +9,47 @@ import { Login } from 'src/types/auth';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  isSubmitting = false;
+  errorMessage = '';
+  emailErrorMessage = '';
 
   form:Login = {
     email: '',
     password: ''
   };
 
-  constructor() { }
+  constructor(private router: Router, private authService: AuthService) { }
 
 
   ngOnInit(): void {
   }
-  submit(){
-    console.log(this.form);
+  async submit(): Promise<void> {
+    if (this.isSubmitting) {
+      return;
+    }
+
+    this.isSubmitting = true;
+    this.errorMessage = '';
+    this.emailErrorMessage = '';
+
+    this.authService.login(this.form).subscribe({
+      next: async () => {
+        this.authService.setSignedIn();
+        await this.router.navigate(['/events']);
+        this.isSubmitting = false;
+      },
+      error: (error) => {
+        const message = error?.error?.message || 'Unable to log in.';
+
+        if (message === 'Email not found') {
+          this.emailErrorMessage = "This email isn't in the database.";
+        } else {
+          this.errorMessage = message;
+        }
+
+        this.isSubmitting = false;
+      }
+    });
   }
 
 }
