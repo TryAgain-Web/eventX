@@ -9,6 +9,8 @@ import { HeaderComponent } from './header/header.component';
 import { EventsComponent } from './pages/events/events.component';
 import { FooterComponent } from './footer/footer.component';
 import { AuthModule } from './auth/auth.module';
+import { MyeventsComponent } from './pages/myevents/myevents.component';
+import { SettingsComponent } from './pages/settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +19,8 @@ import { AuthModule } from './auth/auth.module';
     HeaderComponent,
     EventsComponent,
     FooterComponent,
+    MyeventsComponent,
+    SettingsComponent,
 
 
   ],
