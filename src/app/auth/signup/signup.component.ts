@@ -1,3 +1,4 @@
+import { AuthService } from './../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { SignUp } from 'src/types/auth';
 
@@ -15,13 +16,13 @@ export class SignupComponent implements OnInit {
   };
 
 
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
   }
 
 
-  submit(){
-    console.log(this.form);
+  submit(): void {
+    this.authService.signup(this.form).subscribe((msg) => console.log(msg));
   }
 }
