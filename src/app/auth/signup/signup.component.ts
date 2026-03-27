@@ -36,8 +36,8 @@ export class SignupComponent implements OnInit {
     this.errorMessage = '';
 
     this.authService.signup(this.form).subscribe({
-      next: async () => {
-        this.authService.setSignedIn();
+      next: async (response) => {
+        this.authService.setSignedIn(response.userId);
         await this.router.navigate(['/events']);
         this.isSubmitting = false;
       },

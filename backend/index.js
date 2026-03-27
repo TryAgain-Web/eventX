@@ -3,13 +3,14 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const authRoutes = require('./routes/auth');
+const eventRoutes = require('./routes/events');
 
 const errorController = require('./controllers/error');
 
 const app = express();
 const allowedOrigin = 'http://localhost:4200';
 
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: '10mb' }));
 
 const ports = process.env.PORT || 3000;
 
@@ -27,6 +28,7 @@ app.use((req, res, next) => {
 });
 
 app.use('/auth', authRoutes);
+app.use('/events', eventRoutes);
 
 app.use(errorController.get404); //404 error handler
 app.use(errorController.get500); //server error handler

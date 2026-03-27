@@ -33,8 +33,8 @@ export class LoginComponent implements OnInit {
     this.emailErrorMessage = '';
 
     this.authService.login(this.form).subscribe({
-      next: async () => {
-        this.authService.setSignedIn();
+      next: async (response) => {
+        this.authService.setSignedIn(response.userId);
         await this.router.navigate(['/events']);
         this.isSubmitting = false;
       },

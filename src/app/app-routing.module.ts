@@ -1,19 +1,31 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './pages/home/home.component';
-import { LoginComponent } from './auth/login/login.component';
-import { SignupComponent } from './auth/signup/signup.component';
-import { EventsComponent } from './pages/events/events.component';
-import { MyeventsComponent } from './pages/myevents/myevents.component';
-import { SettingsComponent } from './pages/settings/settings.component';
 
 const routes: Routes = [
-  {path: '', component: HomeComponent },
-  {path: 'login', component: LoginComponent },
-  {path: 'signup', component: SignupComponent },
-  {path: 'events', component: EventsComponent },
-  {path: 'myevents', component: MyeventsComponent },
-  {path: 'settings', component: SettingsComponent }
+  {
+    path: '',
+    loadChildren: () => import('./pages/home/home.module').then((m) => m.HomeModule)
+  },
+  {
+    path: '',
+    loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule)
+  },
+  {
+    path: 'events',
+    loadChildren: () => import('./pages/events/events.module').then((m) => m.EventsModule)
+  },
+  {
+    path: 'myevents',
+    loadChildren: () => import('./pages/myevents/myevents.module').then((m) => m.MyeventsModule)
+  },
+  {
+    path: 'settings',
+    loadChildren: () => import('./pages/settings/settings.module').then((m) => m.SettingsModule)
+  },
+  {
+    path: 'upload-event',
+    loadChildren: () => import('./pages/upload-event/upload-event.module').then((m) => m.UploadEventModule)
+  }
 ];
 
 @NgModule({

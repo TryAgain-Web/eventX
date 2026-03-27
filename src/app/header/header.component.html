@@ -1,17 +1,22 @@
-<nav class="navbar">
-    <div class="Name">
-      <a routerLink="">{{title}}</a>
-    </div>
+<nav class="navbar" aria-label="Top navigation">
+  <div class="Name">
+    <a routerLink="">{{ title }}</a>
+  </div>
 
-    <div class="location">
-       <a *ngIf="isSignedIn$ | async; else signUpLink" (click)="signOut()">Sign out</a>
-       <ng-template #signUpLink>
-         <a routerLink="signup">Sign Up</a>
-       </ng-template>
-       <!-- <a routerLink="events">Events</a> -->
+  <div class="location">
+    <button
+      *ngIf="(isSignedIn$ | async) && !isHome"
+      type="button"
+      class="hamburger"
+      aria-label="Open menu"
+      (click)="toggleSidebar()"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
 
-    </div>
-
-
-    </nav>
+    <a *ngIf="!(isSignedIn$ | async)" routerLink="signup">Sign Up</a>
+  </div>
+</nav>
 

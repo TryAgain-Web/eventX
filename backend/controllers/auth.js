@@ -29,8 +29,11 @@ exports.signup = async (req, res, next) => {
         password: hashedPassword
       }
 
-      await User.save(userDeatails);
-      res.status(201).json({ message: 'User registered!'});
+      const [result] = await User.save(userDeatails);
+      res.status(201).json({
+        message: 'User registered!',
+        userId: result.insertId
+      });
     }catch (err) {
       if (!err.statusCode) {
         err.statusCode = 500;
@@ -75,6 +78,7 @@ exports.login = async (req, res, next) => {
 
     res.status(200).json({
       message: 'Login successful',
+      userId: existingUser.id
     });
   } catch (err) {
     if (!err.statusCode) {

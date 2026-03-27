@@ -1,0 +1,77 @@
+<div *ngIf="isSignedIn$ | async">
+  <div class="overlay" [class.open]="isSidebarOpen" (click)="closeSidebar()"></div>
+
+  <aside class="sidebar" [class.open]="isSidebarOpen" aria-label="Sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-title">{{ title }}</div>
+    <button type="button" class="close" aria-label="Close menu" (click)="closeSidebar()">
+      ✕
+    </button>
+  </div>
+
+  <nav class="nav">
+    <a routerLink="/events" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="closeSidebar()">
+      Browse Events
+    </a>
+    <a routerLink="/myevents" routerLinkActive="active" (click)="closeSidebar()">
+      My Events
+    </a>
+    <a routerLink="/settings" routerLinkActive="active" (click)="closeSidebar()">
+      Settings
+    </a>
+  </nav>
+
+  <div class="sidebar-footer" *ngIf="isSignedIn$ | async">
+    <div class="profile" *ngIf="currentUser$ | async as user">
+      <div class="profile-top">
+        <img
+          class="avatar"
+          [src]="user.profilePicture || defaultAvatarUrl"
+          [alt]="user.username || 'User avatar'"
+        />
+        <div class="profile-meta">
+          <div class="profile-username">{{ user.username }}</div>
+        </div>
+      </div>
+
+      <p class="profile-bio" *ngIf="user.bio">{{ user.bio }}</p>
+
+      <div class="profile-social" *ngIf="user.socialLinks as social">
+        <a
+          *ngIf="social.twitter"
+          [href]="social.twitter"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Twitter
+        </a>
+        <a
+          *ngIf="social.github"
+          [href]="social.github"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          GitHub
+        </a>
+        <a
+          *ngIf="social.linkedin"
+          [href]="social.linkedin"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          LinkedIn
+        </a>
+      </div>
+    </div>
+
+    <button type="button" class="signout" (click)="signOut()">
+      Sign out
+    </button>
+  </div>
+  </aside>
+</div>
+
+<main class="content" [class.shifted]="isSidebarOpen">
+  <ng-content></ng-content>
+</main>
+

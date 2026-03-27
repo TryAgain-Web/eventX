@@ -1,0 +1,73 @@
+<app-dashboard-layout title="EventX">
+  <section class="dashboard">
+    <aside class="filters">
+      <div class="search">
+        <span class="search-icon" aria-hidden="true"></span>
+        <input type="search" placeholder="Search events" aria-label="Search events" />
+      </div>
+
+      <div class="quick">
+        <button type="button" class="pill">This Week</button>
+      </div>
+
+      <div class="block">
+        <div class="block-title">Categories</div>
+        <div class="chips">
+          <button type="button" class="chip">Tech</button>
+          <button type="button" class="chip">Workshop</button>
+          <button type="button" class="chip">Conference</button>
+          <button type="button" class="chip">Hackathon</button>
+          <button type="button" class="chip">Party / Concert</button>
+          <button type="button" class="chip">Volunteer</button>
+          <button type="button" class="chip">Sports</button>
+          <button type="button" class="chip">Other</button>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="block-title">Location</div>
+        <select aria-label="Select location">
+          <option value="">Select Location</option>
+          <option value="nearby">Nearby</option>
+          <option value="city">My City</option>
+          <option value="online">Online</option>
+        </select>
+      </div>
+    </aside>
+
+    <section class="main">
+      <div class="main-header">
+        <h1>Upcoming Events</h1>
+
+        <button type="button" class="upload" (click)="goToUpload()">
+          {{ (isSignedIn$ | async) ? 'Upload event' : 'Sign in to upload' }}
+        </button>
+      </div>
+
+      <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+      <div class="empty" *ngIf="isLoading">
+        <div class="empty-title">Loading events...</div>
+      </div>
+
+      <div class="cards" *ngIf="!isLoading && events.length > 0">
+        <article class="card" *ngFor="let event of events">
+          <img *ngIf="event.image_url" [src]="event.image_url" [alt]="event.title" />
+          <h3>{{ event.title }}</h3>
+          <p class="meta">
+            {{ event.category || 'General' }} · {{ event.location || 'TBA' }} ·
+            {{ event.event_date | date:'medium' }}
+          </p>
+          <p>{{ event.description }}</p>
+        </article>
+      </div>
+
+      <div class="empty" *ngIf="!isLoading && events.length === 0">
+        <div class="magnifier" aria-hidden="true"></div>
+        <div class="empty-title">No events found</div>
+        <div class="empty-sub">Try searching with different keywords</div>
+      </div>
+    </section>
+  </section>
+</app-dashboard-layout>
+

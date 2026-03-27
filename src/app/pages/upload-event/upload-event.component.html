@@ -1,0 +1,59 @@
+<app-dashboard-layout title="EventX">
+  <section class="wrap">
+    <h1>Upload event</h1>
+    <p class="sub">Share your event with the community.</p>
+
+    <form class="card" (ngSubmit)="submit()">
+      <label>
+        <span>Title</span>
+        <input type="text" name="title" required [(ngModel)]="form.title" [disabled]="isSubmitting" />
+      </label>
+
+      <div class="row">
+        <label>
+          <span>Date</span>
+          <input type="date" name="date" required [(ngModel)]="form.date" [disabled]="isSubmitting" />
+        </label>
+
+        <label>
+          <span>Category</span>
+          <select name="category" [(ngModel)]="form.category" [disabled]="isSubmitting">
+            <option>Tech</option>
+            <option>Workshop</option>
+            <option>Conference</option>
+            <option>Hackathon</option>
+            <option>Party / Concert</option>
+            <option>Volunteer</option>
+            <option>Sports</option>
+            <option>Other</option>
+          </select>
+        </label>
+      </div>
+
+      <label>
+        <span>Location</span>
+        <input type="text" name="location" required [(ngModel)]="form.location" [disabled]="isSubmitting" />
+      </label>
+
+      <label>
+        <span>Status</span>
+        <select name="status" [(ngModel)]="form.status" [disabled]="isSubmitting">
+          <option value="active">active</option>
+          <option value="cancelled">cancelled</option>
+        </select>
+      </label>
+
+      <label>
+        <span>Description</span>
+        <textarea name="description" rows="5" [(ngModel)]="form.description" [disabled]="isSubmitting"></textarea>
+      </label>
+
+      <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+      <button class="submit" type="submit" [disabled]="isSubmitting">
+        {{ isSubmitting ? 'Submitting...' : 'Submit event' }}
+      </button>
+    </form>
+  </section>
+</app-dashboard-layout>
+

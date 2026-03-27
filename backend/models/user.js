@@ -17,4 +17,25 @@ module.exports = class User {
             [user.username, user.email, user.password]
         );
     }
+
+    static findById(id) {
+        return db.execute(
+            'SELECT id, username, email, bio, profilePicture, socialLinks FROM users WHERE id = ?',
+            [id]
+        );
+    }
+
+    static findByUsernameExcludingId(username, excludingId) {
+        return db.execute(
+            'SELECT id FROM users WHERE username = ? AND id != ? LIMIT 1',
+            [username, excludingId]
+        );
+    }
+
+    static updateProfileById(id, { username, bio, profilePicture, socialLinks }) {
+        return db.execute(
+            'UPDATE users SET username = ?, bio = ?, profilePicture = ?, socialLinks = ? WHERE id = ?',
+            [username, bio, profilePicture, socialLinks, id]
+        );
+    }
 };

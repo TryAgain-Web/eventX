@@ -1,1 +1,114 @@
-<p>settings works!</p>
+<app-dashboard-layout title="EventX">
+  <section class="page">
+    <h1>Settings</h1>
+    <p>Update your profile information.</p>
+
+    <div class="status" *ngIf="successMessage" role="status">
+      {{ successMessage }}
+    </div>
+    <div class="status error" *ngIf="errorMessage" role="alert">
+      {{ errorMessage }}
+    </div>
+
+    <div class="loading" *ngIf="isLoading">
+      Loading profile...
+    </div>
+
+    <form
+      *ngIf="!isLoading"
+      class="profile-form"
+      [formGroup]="form"
+      (ngSubmit)="submit()"
+      novalidate
+    >
+      <div class="field">
+        <label for="username">Username</label>
+        <input id="username" type="text" formControlName="username" [disabled]="isSubmitting" />
+        <p class="field-error" *ngIf="usernameCtrl.touched && usernameCtrl.invalid">
+          <span *ngIf="usernameCtrl.errors?.['required']">Username is required.</span>
+          <span *ngIf="usernameCtrl.errors?.['minlength']">Must be at least 3 characters.</span>
+          <span *ngIf="usernameCtrl.errors?.['maxlength']">Must be at most 30 characters.</span>
+        </p>
+      </div>
+
+      <div class="field">
+        <label for="bio">Bio (optional)</label>
+        <textarea
+          id="bio"
+          formControlName="bio"
+          rows="4"
+          maxlength="300"
+          [disabled]="isSubmitting"
+        ></textarea>
+        <p class="field-error" *ngIf="bioCtrl.touched && bioCtrl.invalid">
+          Bio must be 300 characters or less.
+        </p>
+      </div>
+
+      <div class="field">
+        <label for="profilePicture">Profile picture (URL or upload)</label>
+
+        <input
+          id="profilePicture"
+          type="text"
+          placeholder="https://example.com/avatar.jpg (or upload below)"
+          formControlName="profilePicture"
+          [disabled]="isSubmitting"
+        />
+        <p class="field-error" *ngIf="profilePictureCtrl.touched && profilePictureCtrl.invalid">
+          Enter a valid image URL (http/https) or a data:image/... URL.
+        </p>
+
+        <div class="file-row">
+          <input
+            type="file"
+            accept="image/*"
+            (change)="onFileSelected($event)"
+            [disabled]="isSubmitting"
+          />
+          <button
+            type="button"
+            class="link-button"
+            (click)="removeProfilePicture()"
+            [disabled]="isSubmitting"
+          >
+            Remove
+          </button>
+        </div>
+
+        <div class="preview" *ngIf="previewPictureUrl">
+          <img [src]="previewPictureUrl" alt="Profile preview" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Social links (optional)</label>
+        <div class="social-grid" formGroupName="socialLinks">
+          <div class="field">
+            <label for="twitter">Twitter</label>
+            <input id="twitter" type="url" placeholder="https://twitter.com/..." formControlName="twitter" [disabled]="isSubmitting" />
+            <p class="field-error" *ngIf="twitterCtrl.touched && twitterCtrl.invalid">Invalid URL.</p>
+          </div>
+
+          <div class="field">
+            <label for="github">GitHub</label>
+            <input id="github" type="url" placeholder="https://github.com/..." formControlName="github" [disabled]="isSubmitting" />
+            <p class="field-error" *ngIf="githubCtrl.touched && githubCtrl.invalid">Invalid URL.</p>
+          </div>
+
+          <div class="field">
+            <label for="linkedin">LinkedIn</label>
+            <input id="linkedin" type="url" placeholder="https://linkedin.com/in/..." formControlName="linkedin" [disabled]="isSubmitting" />
+            <p class="field-error" *ngIf="linkedinCtrl.touched && linkedinCtrl.invalid">Invalid URL.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button type="submit" class="save" [disabled]="isSubmitting || form.invalid">
+          {{ isSubmitting ? 'Saving...' : 'Save changes' }}
+        </button>
+      </div>
+    </form>
+  </section>
+</app-dashboard-layout>

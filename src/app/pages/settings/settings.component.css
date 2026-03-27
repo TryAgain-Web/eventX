@@ -1,0 +1,156 @@
+/* Settings page sits inside the dashboard content area (already dark + padded). */
+.page {
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.status {
+  margin: 10px 0 14px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  background: rgba(56, 189, 248, 0.1);
+  color: rgba(226, 232, 240, 0.95);
+  font-weight: 700;
+}
+
+.status.error {
+  border-color: rgba(239, 68, 68, 0.35);
+  background: rgba(239, 68, 68, 0.12);
+  color: rgba(254, 202, 202, 0.95);
+}
+
+.loading {
+  margin-top: 16px;
+  color: rgba(226, 232, 240, 0.7);
+  font-weight: 700;
+}
+
+.profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+
+  border-radius: 18px;
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  background: rgba(15, 23, 42, 0.25);
+  padding: 18px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.field > label {
+  font-weight: 800;
+  color: rgba(226, 232, 240, 0.92);
+}
+
+input[type='text'],
+input[type='url'],
+textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  background: rgba(2, 6, 23, 0.45);
+  color: #e2e8f0;
+  outline: none;
+  font-size: 14px;
+}
+
+textarea {
+  resize: vertical;
+}
+
+input:focus,
+textarea:focus {
+  border-color: rgba(56, 189, 248, 0.55);
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.12);
+}
+
+.field-error {
+  margin: 0;
+  color: rgba(252, 165, 165, 0.98);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.file-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.file-row input[type='file'] {
+  color: rgba(226, 232, 240, 0.9);
+}
+
+.link-button {
+  border: none;
+  background: transparent;
+  color: rgba(56, 189, 248, 0.95);
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.link-button:hover {
+  text-decoration: underline;
+}
+
+.preview {
+  margin-top: 10px;
+}
+
+.preview img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  background: rgba(148, 163, 184, 0.06);
+}
+
+.social-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+
+.save {
+  border: 1px solid rgba(56, 189, 248, 0.28);
+  background: rgba(56, 189, 248, 0.14);
+  color: #e2e8f0;
+  padding: 12px 16px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 900;
+  min-width: 200px;
+}
+
+.save:disabled {
+  cursor: not-allowed;
+  opacity: 0.75;
+}
+
+@media (max-width: 720px) {
+  .social-grid {
+    grid-template-columns: 1fr;
+  }
+  .actions {
+    justify-content: stretch;
+  }
+  .save {
+    width: 100%;
+  }
+}
